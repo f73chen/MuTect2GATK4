@@ -1,0 +1,11 @@
+{
+  "Mutect2GATK4.runMuTect2GATK4.gatk": "String (optional, default = \"$GATK_ROOT/gatk\")",
+  "Mutect2GATK4.normal_bam": "File",
+  "Mutect2GATK4.outputTumorNamePrefix": "String? (optional)",
+  "Mutect2GATK4.runMuTect2GATK4.refFasta": "String (optional, default = \"$HG19_ROOT/hg19_random.fa\")",
+  "Mutect2GATK4.outputNormalNamePrefix": "String? (optional)",
+  "Mutect2GATK4.runMuTect2GATK4.mutectTag": "String (optional, default = \"mutect2_gatk\")",
+  "Mutect2GATK4.runMuTect2GATK4.outputTumorNamePrefix": "String? (optional)",
+  "Mutect2GATK4.tumor_bam": "File",
+  "Mutect2GATK4.runMuTect2GATK4.modules": "String (optional, default = \"gatk/4.1.2.0 hg19/p13 samtools/1.9\")"
+}

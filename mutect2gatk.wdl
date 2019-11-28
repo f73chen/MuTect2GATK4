@@ -39,11 +39,12 @@ task runMuTect2GATK4 {
   input {
     File tumor_bam
     File normal_bam
+    Int jobMemory = 16
+    String outputTumorNamePrefix = outputTumorNamePrefix
     String gatk = "$GATK_ROOT/gatk"
     String refFasta = "$HG19_ROOT/hg19_random.fa"
     String outputPrefix = "OUTPUT"
     String mutectTag = "mutect2_gatk"
-    Int jobMemory = 18
     String modules = "gatk/4.1.2.0 hg19/p13 samtools/1.9"
   }
 
@@ -51,11 +52,10 @@ task runMuTect2GATK4 {
   gatk: "gatk to use"
   tumor_bam: "Input tumor file (bam or sam)"
   normal_bam: "Input normal file (bam or sam)"
+  jobMemory: "Memory allocated for Job"
   refFasta: "Path to the reference fasta"
   mutectTag: "metric tag is used as a file extension for output"
-  filter: "Picard filter to use"
   outputPrefix: "Output prefix, either input file basename or custom string"
-  jobMemory: "memory allocated for Job"
   modules: "Environment module names and version to load (space separated) before command execution"
 }
 
