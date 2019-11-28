@@ -7,5 +7,7 @@
   "Mutect2GATK4.runMuTect2GATK4.mutectTag": "String (optional, default = \"mutect2_gatk\")",
   "Mutect2GATK4.runMuTect2GATK4.outputTumorNamePrefix": "String? (optional)",
   "Mutect2GATK4.tumor_bam": "File",
-  "Mutect2GATK4.runMuTect2GATK4.modules": "String (optional, default = \"gatk/4.1.2.0 hg19/p13 samtools/1.9\")"
+  "Mutect2GATK4.runMuTect2GATK4.modules": "String (optional, default = \"gatk/4.1.2.0 hg19/p13 samtools/1.9\")",
+  "Mutect2GATK4.runMuTect2GATK4.jobMemory": "Int (optional, default = 16)"
 }
+
