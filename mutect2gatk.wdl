@@ -6,8 +6,21 @@ workflow Mutect2GATK4 {
     File? normal_bam
     String outputTumorNamePrefix = basename(tumor_bam, '.bam')
     String? outputNormalNamePrefix = basename(normal_bam, '.bam')
+    File? intervals
   }
 
+  call SplitIntervals {
+      input:
+          intervals = intervals,
+          ref_fasta = ref_fasta,
+          ref_fai = ref_fai,
+          ref_dict = ref_dict,
+          scatter_count = scatter_count,
+          split_intervals_extra_args = split_intervals_extra_args,
+          runtime_params = standard_runtime
+        }
+
+scatter (subintervals in SplitIntervals.interval_files ) {
   call runMuTect2GATK4 {
     input:
     tumor_bam = tumor_bam,
