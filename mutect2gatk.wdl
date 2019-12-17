@@ -18,14 +18,14 @@ workflow Mutect2GATK4 {
           scatter_count = scatter_count,
           split_intervals_extra_args = split_intervals_extra_args,
           runtime_params = standard_runtime
-        }
+}
 
-scatter (subintervals in SplitIntervals.interval_files ) {
-  call runMuTect2GATK4 {
-    input:
-    tumor_bam = tumor_bam,
-    normal_bam = normal_bam,
-    outputPrefix = outputTumorNamePrefix
+  scatter (subintervals in SplitIntervals.interval_files ) {
+    call runMuTect2GATK4 {
+      input:
+        tumor_bam = tumor_bam,
+        normal_bam = normal_bam,
+        outputPrefix = outputTumorNamePrefix
   }
 
   output {
@@ -46,7 +46,7 @@ scatter (subintervals in SplitIntervals.interval_files ) {
       url: "https://software.broadinstitute.org/gatk/download/index"
     }]
   }
-}
+}}
 
 task runMuTect2GATK4 {
   input {
