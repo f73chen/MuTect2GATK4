@@ -3,9 +3,9 @@ version 1.0
 workflow Mutect2GATK4 {
   input {
     File tumor_bam
-    File normal_bam
+    File? normal_bam
     String outputTumorNamePrefix = basename(tumor_bam, '.bam')
-    String outputNormalNamePrefix = basename(normal_bam, '.bam')
+    String? outputNormalNamePrefix = basename(normal_bam, '.bam')
   }
 
   call runMuTect2GATK4 {
@@ -67,15 +67,28 @@ meta {
 
 command <<<
 
-tumor_name=$(samtools view -H ~{tumor_bam} | grep '@RG')
-normal_name=$(samtools view -H ~{normal_bam} | grep '@RG')
+#tumor_name=$(samtools view -H ~{tumor_bam} | grep '@RG')
+#normal_name=$(samtools view -H ~{normal_bam} | grep '@RG')
+
+# We need to create these files regardless, even if they stay empty
+  touch bamout.bam
+  touch f1r2.tar.gz
+  echo "" > normal_name.txt
+
+  gatk --java-options "-Xmx~{command_mem}m" GetSampleName -R ~{reFasta} -I ~{tumor_bam} -O tumor_name.txt -encode
+  tumor_command_line="-I ~{tumor_bam} -tumor `cat tumor_name.txt`"
+
+  if [[ ! -z "~{normal_bam}" ]]; then
+    gatk --java-options "-Xmx~{command_mem}m" GetSampleName -R ~{reFasta} -I ~{normal_bam} -O normal_name.txt -encode
+    normal_command_line="-I ~{normal_bam} -normal `cat normal_name.txt`"
+  fi
 
   ~{gatk} -Xmx~{jobMemory-6}G Mutect2 \
   -R ~{refFasta} \
   -I ~{tumor_bam} \
   -I ~{normal_bam} \
-  -tumor $tumor_name \
-  -normal $normal_name \
+  -tumor $tumor_command_line \
+  -normal $normal_command_line \
   -O "~{outputTumorNamePrefix}.~{mutectTag}.vcf"
 >>>
 
