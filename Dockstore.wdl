@@ -30,7 +30,7 @@ workflow mutect2GATK4 {
     description: "Somatic short variant analysis."
     dependencies: [
     {
-      name: "gatk/4.1.1.0",
+      name: "gatk/4.1.6.0",
       url: "https://software.broadinstitute.org/gatk/download/index"
     },
     {

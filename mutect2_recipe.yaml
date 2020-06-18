@@ -47,43 +47,43 @@
     - name: libgfortran-4.9-dev
       permitted_os: ["Debian8.11"]
 
-# gatk/4.1.7.0
+# gatk/4.1.6.0
 - name: gatk
-  version: 4.1.7.0
+  version: 4.1.6.0
   build_type: custom
   build_args:
     prereq_args:
       prereq_args:
-        sha256: 1ed6f7c3194563a16c53b66e64d1b16d3f5e919d057d9e60f0ae6570eb0882e3
-        url: https://github.com/broadinstitute/gatk/releases/download/4.1.7.0/gatk-4.1.7.0.zip
+        sha256: 1a8a0256693c0e1fb83d87b6da4bad4a182bfc2a762394650b627a882694c306
+        url: https://github.com/broadinstitute/gatk/releases/download/4.1.6.0/gatk-4.1.6.0.zip
       prereq_type: download
     prereq_type: extract
     steps:
-      - command:
-          - install
-          - -Dm750
-          - gatk-4.1.7.0/gatk
-          - '{output_dir}/bin/gatk'
-      - command:
-          - install
-          - -Dm640
-          - gatk-4.1.7.0/gatk-package-4.1.7.0-local.jar
-          - '{output_dir}/bin/gatk-package-4.1.7.0-local.jar'
-      - command:
-          - install
-          - -Dm640
-          - gatk-4.1.7.0/gatk-package-4.1.7.0-spark.jar
-          - '{output_dir}/bin/gatk-package-4.1.7.0-spark.jar'
-      # the following r-deps are needed for some gatk tools
-      - build_type: cran
-        build_args:
-          package: ggplot2
-      - build_type: cran
-        build_args:
-          package: gplots
-      - build_type: cran
-        build_args:
-          package: gsalib
+    - command:
+      - install
+      - -Dm750
+      - gatk-4.1.6.0/gatk
+      - '{output_dir}/bin/gatk'
+    - command:
+      - install
+      - -Dm640
+      - gatk-4.1.6.0/gatk-package-4.1.6.0-local.jar
+      - '{output_dir}/bin/gatk-package-4.1.6.0-local.jar'
+    - command:
+      - install
+      - -Dm640
+      - gatk-4.1.6.0/gatk-package-4.1.6.0-spark.jar
+      - '{output_dir}/bin/gatk-package-4.1.6.0-spark.jar'
+    # the following r-deps are needed for some gatk tools
+    - build_type: cran
+      build_args:
+        package: ggplot2
+    - build_type: cran
+      build_args:
+        package: gplots
+    - build_type: cran
+      build_args:
+        package: gsalib
   depends:
     - name: java
       version: 8
