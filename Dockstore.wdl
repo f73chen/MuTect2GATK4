@@ -12,11 +12,16 @@ workflow mutect2GATK4 {
     File? ponIdx
     File? gnomad
     File? gnomadIdx
+    File refFasta
+    File refFai
+    File refDict
+    String docker = "g3chen/mutect2:1.0"
   }
 
   parameter_meta {
     tumorBam: "Input tumor file (bam or sam)."
     normalBam: "Input normal file (bam or sam)."
+    docker: "Docker container to run the workflow in"
   }
 
   meta {
@@ -56,7 +61,11 @@ workflow mutect2GATK4 {
         ponIdx = ponIdx,
         gnomad = gnomad,
         gnomadIdx = gnomadIdx,
-        outputBasename = outputBasename
+        outputBasename = outputBasename,
+        refFasta = refFasta,
+        refFai = refFai,
+        refDict = refDict,
+        docker = docker
     }
   }
 
@@ -67,12 +76,15 @@ workflow mutect2GATK4 {
   call mergeVCFs {
     input:
       vcfs = unfilteredVcfs,
-      vcfIndices = unfilteredVcfIndices
+      vcfIndices = unfilteredVcfIndices,
+      refFasta = refFasta,
+      docker = docker
   }
 
   call mergeStats {
     input:
-      stats = unfilteredStats
+      stats = unfilteredStats,
+      docker = docker
   }
 
   call filter {
@@ -80,7 +92,11 @@ workflow mutect2GATK4 {
       intervalFile = intervalFile,
       unfilteredVcf = mergeVCFs.mergedVcf,
       unfilteredVcfIdx = mergeVCFs.mergedVcfIdx,
-      mutectStats = mergeStats.mergedStats
+      mutectStats = mergeStats.mergedStats,
+      refFasta = refFasta,
+      refFai = refFai,
+      refDict = refDict,
+      docker = docker
   }
 
 
@@ -115,9 +131,12 @@ task splitStringToArray {
 task runMutect2 {
   input {
     String modules = "gatk/4.1.6.0 hg19/p13"
-    String refFasta = "$HG19_ROOT/hg19_random.fa"
-    String refFai = "$HG19_ROOT/hg19_random.fa.fai"
-    String refDict = "$HG19_ROOT/hg19_random.dict"
+    # String refFasta = "$HG19_ROOT/hg19_random.fa"
+    File refFasta
+    # String refFai = "$HG19_ROOT/hg19_random.fa.fai"
+    File refFai
+    # String refDict = "$HG19_ROOT/hg19_random.dict"
+    File refDict
     String mutectTag = "mutect2"
     File? intervalFile
     Array[String]? intervals
@@ -135,6 +154,7 @@ task runMutect2 {
     Int threads = 4
     Int memory = 32
     Int timeout = 24
+    String docker
   }
 
   String outputVcf = if (defined(normalBam)) then outputBasename + "." + mutectTag + ".vcf" else outputBasename + "." + mutectTag + ".tumor_only.vcf"
@@ -181,7 +201,8 @@ task runMutect2 {
   >>>
 
   runtime {
-    cpu: "~{threads}"
+  	docker:  "~{docker}"
+    cpu:     "~{threads}"
     memory:  "~{memory} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
@@ -197,11 +218,13 @@ task runMutect2 {
 task mergeVCFs {
   input {
     String modules = "gatk/4.1.6.0 hg19/p13"
-    String refFasta = "$HG19_ROOT/hg19_random.fa"
+    # String refFasta = "$HG19_ROOT/hg19_random.fa"
+    File refFasta
     Array[File] vcfs
     Array[File] vcfIndices
     Int memory = 4
     Int timeout = 12
+    String docker
   }
 
   parameter_meta {
@@ -209,6 +232,7 @@ task mergeVCFs {
     vcfs: "Vcf's from scatter to merge together"
     memory: "Memory allocated for job"
     timeout: "Hours before task timeout"
+    docker: "Docker container to run the workflow in"
   }
 
   meta {
@@ -229,6 +253,7 @@ task mergeVCFs {
   >>>
 
   runtime {
+  	docker:  "~{docker}"
     memory:  "~{memory} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
@@ -246,6 +271,7 @@ task mergeStats {
     Array[File]+ stats
     Int memory = 4
     Int timeout = 5
+    String docker
   }
 
   String outputStats = basename(stats[0])
@@ -259,6 +285,7 @@ task mergeStats {
   >>>
 
   runtime {
+  	docker:  "~{docker}"
     memory:  "~{memory} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
@@ -272,9 +299,12 @@ task mergeStats {
 task filter {
   input {
     String modules = "gatk/4.1.6.0 hg19/p13 samtools/1.9"
-    String refFasta = "$HG19_ROOT/hg19_random.fa"
-    String refFai = "$HG19_ROOT/hg19_random.fa.fai"
-    String refDict = "$HG19_ROOT/hg19_random.dict"
+    #String refFasta = "$HG19_ROOT/hg19_random.fa"
+    File refFasta
+    #String refFai = "$HG19_ROOT/hg19_random.fa.fai"
+    File refFai
+    #String refDict = "$HG19_ROOT/hg19_random.dict"
+    File refDict
     File? intervalFile
     File unfilteredVcf
     File unfilteredVcfIdx
@@ -282,6 +312,7 @@ task filter {
     String? filterExtraArgs
     Int memory = 16
     Int timeout = 12
+    String docker = docker
   }
 
   String unfilteredVcfName = basename(unfilteredVcf)
@@ -309,6 +340,7 @@ task filter {
   >>>
 
   runtime {
+  	docker:  "~{docker}"
     memory:  "~{memory} GB"
     modules: "~{modules}"
     timeout: "~{timeout}"
