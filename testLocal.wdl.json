@@ -1,11 +1,9 @@
 {
   "mutect2GATK4.tumorBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam",
   "mutect2GATK4.tumorBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam.bai",
-  "mutect2GATK4.normalBam": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam",
-  "mutect2GATK4.normalBai": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam.bai",
   "mutect2GATK4.intervalFile": "/.mounts/labs/gsi/testdata/mutect2GATK4/input_data/S31285117_Covered.bed",
-  "mutect2GATK4.refFai": "File",
-  "mutect2GATK4.refFasta": "File",
-  "mutect2GATK4.refDict": "File",
+  "mutect2GATK4.refFai": "/home/ubuntu/Downloads/sample_data/hg19_random.fa.fai",
+  "mutect2GATK4.refFasta": "/home/ubuntu/Downloads/sample_data/hg19_random.fa",
+  "mutect2GATK4.refDict": "/home/ubuntu/Downloads/sample_data/hg19_random.dict",
   "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2"
 }
