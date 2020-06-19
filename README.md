@@ -10,6 +10,17 @@ Somatic short variant analysis.
 
 ## Usage
 
+### Dockstore
+Make a runtime JSON template and fill in desired inputs, outputs, and other parameters
+```
+dockstore workflow convert entry2json --entry github.com/f73chen/MuTect2GATK4/MuTect2:master > Dockstore.json
+vim Dockstore.json
+```
+Run locally with the Dockstore CLI
+```
+dockstore workflow launch --entry github.com/f73chen/MuTect2GATK4/MuTect2:master --json Dockstore.json
+```
+
 ### Cromwell
 ```
 java -jar cromwell.jar run mutect2.wdl --inputs inputs.json
