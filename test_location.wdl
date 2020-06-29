@@ -30,6 +30,7 @@ task find_tools {
         String message = read_string(stdout())
     }
     runtime {
-        docker: "g3chen/mutect2:1.0"
+        docker: "g3chen/mutect2@sha256:c9c87b456d10098326edd996669885a798c6f956c0ce47caee72f8fdc07c3eac"
+        modules: "gatk/4.1.6.0 samtools/1.9"
     }
 }

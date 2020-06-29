@@ -4,19 +4,17 @@ workflow test_location {
 
 task find_tools {
     command <<<
-        ls -l /data/test_star_fusion/reads_1.fq.gz
+        ls -l /data/HG19_ROOT/hg19_random.fa
         echo "@@@@@@@@@@@@@"
-        ls -l /data/test_star_fusion/reads_2.fq.gz
+        ls -l /data/HG19_ROOT/hg19_random.fa.fai
         echo "@@@@@@@@@@@@@"
-        ls -l /data/test_star_fusion/test.Chimeric.out.junction
-        echo "@@@@@@@@@@@@@"
-        ls -l /data/STAR_FUSION_GENOME_ROOT/ctat_genome_lib_build_dir
+        ls -l /data/HG19_ROOT/hg19_random.dict
         echo "@@@@@@@@@@@@@"
     >>>
     output{
         String message = read_string(stdout())
     }
     runtime {
-        docker: "g3chen/starfusion:2.0"
+        docker: "g3chen/mutect2@sha256:c9c87b456d10098326edd996669885a798c6f956c0ce47caee72f8fdc07c3eac"
     }
 }
