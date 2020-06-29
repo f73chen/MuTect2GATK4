@@ -1,9 +1,18 @@
 {
-  "mutect2GATK4.tumorBam": "/home/ubuntu/Downloads/sample_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam",
-  "mutect2GATK4.tumorBai": "/home/ubuntu/Downloads/sample_data/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam.bai",
-  "mutect2GATK4.intervalFile": "/home/ubuntu/Downloads/sample_data/S31285117_Covered.bed",
-  "mutect2GATK4.refFai": "/home/ubuntu/Downloads/sample_data/hg19_random.fa.fai",
-  "mutect2GATK4.refFasta": "/home/ubuntu/Downloads/sample_data/hg19_random.fa",
-  "mutect2GATK4.refDict": "/home/ubuntu/Downloads/sample_data/hg19_random.dict",
-  "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2"
+  "mutect2GATK4.tumorBam": "/home/ubuntu/Downloads/sample_data/test_mutect2/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam",
+  "mutect2GATK4.tumorBai": "/home/ubuntu/Downloads/sample_data/test_mutect2/ESBCC_0005_Br_P_EX_D03834113.merged.sorted.filter.deduped.realigned.recal.bam.bai",
+  "mutect2GATK4.normalBam": "/home/ubuntu/Downloads/sample_data/test_mutect2/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam",
+  "mutect2GATK4.normalBai": "/home/ubuntu/Downloads/sample_data/test_mutect2/ESBCC_0005_Pb_R_EX_D03834105.merged.sorted.filter.deduped.realigned.recal.bam.bai",
+  "mutect2GATK4.intervalFile": "/home/ubuntu/Downloads/sample_data/test_mutect2/S31285117_Covered.bed",
+  "mutect2GATK4.intervalsToParallelizeBy": "chr1,chr2",
+  "mutect2GATK4.runMutect2.modules": "gatk/4.1.6.0",
+  "mutect2GATK4.runMutect2.refFasta": "/data/HG19_ROOT/hg19_random.fa",
+  "mutect2GATK4.runMutect2.refFai": "/data/HG19_ROOT/hg19_random.fa.fai",
+  "mutect2GATK4.runMutect2.refDict": "/data/HG19_ROOT/hg19_random.dict",
+  "mutect2GATK4.mergeVCFs.modules": "gatk/4.1.6.0",
+  "mutect2GATK4.mergeVCFs.refFasta": "/data/HG19_ROOT/hg19_random.fa",
+  "mutect2GATK4.filter.modules": "gatk/4.1.6.0 samtools/1.9",
+  "mutect2GATK4.filter.refFasta": "/data/HG19_ROOT/hg19_random.fa",
+  "mutect2GATK4.filter.refFai": "/data/HG19_ROOT/hg19_random.fa.fai",
+  "mutect2GATK4.filter.refDict": "/data/HG19_ROOT/hg19_random.dict"
 }
